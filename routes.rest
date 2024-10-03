@@ -1,0 +1,15 @@
+// Local Host
+### Get all contacts
+GET http://localhost:3000/contacts
+
+### Get contact by ID
+GET http://localhost:3000/contacts/66fd3e0ac8809d867c7576b7
+
+
+
+//Production
+### Get all contacts
+GET cse341-purplecre.onrender.com/contacts
+
+### Get contact by ID
+GET cse341-purplecre.onrender.com/contacts/66fd3e0ac8809d867c7576b7
