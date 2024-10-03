@@ -3,27 +3,57 @@ const { MongoClient} = require("mongodb");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const mongoConnect = async function() {
-  const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.ionjk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
-  const client = new MongoClient(uri);
+let database;
 
-  try {
-    await client.connect();
-    await listDatabases(client);
-  } catch (error) {
-    console.error(error);
-  } finally {
-    await client.close();
+const initDb = (callback) => {
+  if (database) {
+    console.log("DB is already initialised");
+    return callback(null, database);
   }
+  MongoClient.connect(process.env.DB_URI)
+    .then((client) => {
+      database = client;
+      callback(null, database);
+    })
+    .catch((err) => {
+      callback(err);
+    })
 }
 
-mongoConnect().catch(console.error);
+const getDatabase = () => {
+  if(!database) {
+    throw("Database not initialised!")
+  }
+  return database;
+}
 
-async function listDatabases(client){
-    databasesList = await client.db().admin().listDatabases();
+// const mongoConnect = async function() {
+//   const uri = process.env.DB_URI;
+//   const client = new MongoClient(uri);
+
+//   try {
+//     await client.connect();
+//     await listDatabases(client);
+//   } catch (error) {
+//     console.error(error);
+//   } finally {
+//     await client.close();
+//   }
+// }
+
+// mongoConnect().catch(console.error);
+
+// async function listDatabases(client){
+//   database = client;
+
+//   databasesList = await client.db().admin().listDatabases();
  
-    console.log("Databases:");
-    databasesList.databases.forEach(db => console.log(` - ${db.name}`));
-};
+//   console.log("Databases:");
+//   databasesList.databases.forEach(db => console.log(` - ${db.name}`));
+// };
 
-module.exports = mongoConnect
+
+module.exports = {
+  initDb,
+  getDatabase
+};
