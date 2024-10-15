@@ -38,3 +38,30 @@ GET cse341-purplecre.onrender.com/contacts
 
 ### Get contact by ID
 GET cse341-purplecre.onrender.com/contacts/66fd3e0ac8809d867c7576b7
+
+### Create Contact
+POST cse341-purplecre.onrender.com/contacts HTTP/1.1
+content-Type: application/json 
+
+{
+"firstName": "Christopher",
+"lastName": "Gatsi",
+"email": "chrisg@gmail.com",
+"favouriteColor": "Blue",
+"birthday": "14 August 1994"
+}
+
+### PUT Contact
+PUT  cse341-purplecre.onrender.com/contacts/66fd3e0ac8809d867c7576b7 HTTP/1.1
+Content-Type: application/json
+
+{
+    "firstName": "Bright",
+    "lastName": "Gatto",
+    "email": "derkatze@gmail.com",
+    "favouriteColor": "Gold",
+    "birthday": "2 January 2024"
+}
+
+### Delete Contact
+DELETE cse341-purplecre.onrender.com/contacts/670ab5a90ffefe4c9fe41522
