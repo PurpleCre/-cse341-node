@@ -5,7 +5,7 @@ const doc = {
     title: 'Contacts Api',
     description: 'Contacts Api'
   },
-  host: 'localhost:3000',
+  host: 'cse341-purplecre.onrender.com',
   schemes: ['http', 'https']
 };
 
